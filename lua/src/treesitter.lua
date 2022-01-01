@@ -94,6 +94,25 @@ local get_return_type = function (function_node)
 end
 
 
+---Uses the function node to find the final function declaration node (just
+--before the body).
+---@param function_node any The function node
+---@return any The final node that is used or nil if no body found
+local get_final_function_node = function(function_node)
+
+    local prev_node = nil
+
+    for node, field in function_node:iter_children() do
+        if field == 'body' then
+            return prev_node
+        end
+        prev_node = node
+    end
+
+    return nil
+end
+
+
 M.get_function_data = function ()
     local function_node = get_function_parent()
 
@@ -102,7 +121,13 @@ M.get_function_data = function ()
         return nil
     end
 
+    local s1, s2 = function_node:start()
+
+    local e1, e2 = get_final_function_node(function_node):end_()
+
     local results = {
+        start_location = {s1, s2},
+        end_location = {e1, e2},
         identifier = get_function_name(function_node),
         parameters = get_parameters(function_node),
         return_type = get_return_type(function_node)
