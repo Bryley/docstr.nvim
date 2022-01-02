@@ -5,17 +5,17 @@ docstr.nvim is a simple plugin for neovim that auto generates documentation for 
 
 ## Languages
 
-[ ] Python
+- [ ] Python
     - [X] numpy
     - [ ] google
     - ...
-[ ] LUA
-[ ] Javascript
-[ ] Typescript
-[ ] C
-[ ] C++
-[ ] Java
-...
+- [ ] LUA
+- [ ] Javascript
+- [ ] Typescript
+- [ ] C
+- [ ] C++
+- [ ] Java
+- ...
 
 ## Requirements
 
