@@ -1,6 +1,16 @@
 
 local M = {}
 
+local array_contains = function (array, value)
+    for val in array do
+        if val == value then
+            return true
+        end
+    end
+
+    return false
+end
+
 M.place_docs = function (config, function_data, given_template)
     local filetype = vim.bo.filetype
 
@@ -19,8 +29,16 @@ M.place_docs = function (config, function_data, given_template)
     end
 
     -- Get and place text
+    local parameters = {}
+
+    for param in function_data["parameters"] do
+        if array_contains(template.ignore_params, param.identifier) then
+            table.insert(parameters, param)
+        end
+    end
+
     local text = template.content(function_data["identifier"],
-                                  function_data["parameters"],
+                                  parameters,
                                   function_data["return_type"])
 
     local buf = vim.api.nvim_get_current_buf()

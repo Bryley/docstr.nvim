@@ -13,6 +13,9 @@ local config = {
             numpy = {
                 place_above = false,
                 indent = 1,
+                ignore_params = {
+                    "self"
+                },
                 content = require("src.templates.python.numpy")
             }
         }
@@ -26,10 +29,7 @@ end
 M.docstr = function(template)
     local function_data = treesitter.get_function_data()
 
-    print(vim.bo.filetype)
-
     utils.place_docs(config, function_data, template)
-
 end
 
 
