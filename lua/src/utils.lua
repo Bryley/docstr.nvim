@@ -32,7 +32,7 @@ M.place_docs = function (config, function_data, given_template)
     local parameters = {}
 
     for _, param in ipairs(function_data["parameters"]) do
-        if array_contains(template.ignore_params, param.identifier) then
+        if not array_contains(template.ignore_params, param.identifier) then
             table.insert(parameters, param)
         end
     end
